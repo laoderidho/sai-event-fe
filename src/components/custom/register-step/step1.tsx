@@ -13,8 +13,8 @@ const Step1 = () => {
 
   const updateBio = () =>{
     dispatch(setData({ 
-        name: name ,
-        email: email,
+        name,
+        email,
         no_telp: phone
     }))
   }
@@ -51,7 +51,7 @@ const Step1 = () => {
         </div>
         
         <div className="w-full mt-6">
-            <Button onClick={updateBio} className="w-full h-9 !text-base cursor-pointer bg-[#006E5D] hover:bg-[#004D40]">Simpan</Button>
+            <Button onClick={updateBio} disabled={name !== '' && email !== '' && phone !== ''} className="w-full h-9 !text-base cursor-pointer bg-[#006E5D] hover:bg-[#004D40]">Simpan</Button>
             <p className="text-gray-600 text-base mt-2">Sudah Punya Akun? 
                 <span className="!text-blue-600 pl-2"><Link href="/auth/login">Login</Link></span>
             </p>

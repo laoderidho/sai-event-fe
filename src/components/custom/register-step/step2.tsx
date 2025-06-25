@@ -2,14 +2,30 @@ import React, { useState } from 'react'
 import Password from '../input/Password'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { useDispatch } from 'react-redux'
+import { setData } from '@/store/registerStore'
 
 const Step2 = () => {
   
   const [password, setPassword]= useState('')
   const [confirmPassword, setConfirmPassword]= useState('')
+  const [showMessage, setShowMessage] = useState(false)
+  const [message, setMessage] = useState('')
+
+  const dispatch = useDispatch()
 
   const updatePassword = () : void => {
-
+      if(password !== confirmPassword){
+        setShowMessage(true)
+        setMessage('* Password Dan Kata Sandi Harus Sama')
+      }else if(password.length < 8){
+        setShowMessage(true)
+        setMessage('* Kata Sandi tidak boleh kurang dari 8 karakter')
+      }else{
+        dispatch(setData({
+          password
+        }))
+      }
   }
 
   return (
@@ -21,6 +37,7 @@ const Step2 = () => {
         value={password}
         onChange={setPassword}
       />
+      { showMessage && <p className='text-sm text-red-500'>{message}</p>}
       <div className='mt-2'>
         <Password
             label='Confirm Password'
@@ -29,6 +46,7 @@ const Step2 = () => {
             value={confirmPassword}
             onChange={setConfirmPassword}
         />
+        { showMessage && <p className='text-sm text-red-500'>{message}</p>}
       </div>
 
       <div className="w-full mt-6">

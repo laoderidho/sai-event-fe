@@ -17,6 +17,8 @@ const page = () => {
     const setupStep = (): void => {
         if(state.email !== '' && state.name !== '' && state.no_telp !== ''){
           setStep(prev=>prev+1)
+        }else if(state.password !== ''){
+          setStep(prev=>prev+1)
         }
     }
 

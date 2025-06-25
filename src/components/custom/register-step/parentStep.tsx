@@ -2,6 +2,7 @@
 import Step1 from "./step1"
 import Step2 from "./step2"
 import { AnimatePresence, motion } from "framer-motion"
+import Step3 from "./step3"
 
 type Step = {
   stepNumber: number
@@ -24,6 +25,7 @@ const ParentStep = ({ stepNumber }: Step) => {
           className="absolute w-full"
         >
           {stepNumber === 1 && <Step2 />}
+          {stepNumber === 2 && <Step3 />}
         </motion.div>
       </AnimatePresence>
     )
