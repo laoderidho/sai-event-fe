@@ -1,35 +1,52 @@
 "use client"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import Image from "next/image"
-import { Input } from "@/components/ui/input"
-import { Label } from "@radix-ui/react-label"
-import { Eye, EyeOff } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import api from "@/lib/api"
+import Link from "next/link"
+import Text from "@/components/custom/input/Text"
+import Password from "@/components/custom/input/Password"
+import AlertDanger from "@/components/custom/alert/danger"
 
 const page = () => {
-    const [showPassword, setShowPassword] = useState(false)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
+    const [messageError, setMessageError] = useState('')
+    const [showMessage, setShowMessage] = useState(false)
+
+
+    // function
     const login = async () =>{
         try {
             const res = await api.post('auth/login', {
-                email: username,
+                username: username,
                 password: password
             })
             if(res.status == 200){
                 console.log("success")
             }
-        } catch (error) {
-            console.log(error)
+        } catch (error: any) {
+            setMessageError(error.response.data.message)
+            setShowMessage(true)
         }
     }
 
+    // mounted 
+    useEffect(() =>{
+
+        if(showMessage){
+            setTimeout(()=>{
+                setShowMessage(false)
+            }, 5000)
+        }
+
+    },[showMessage])
+
     return (
         <div className="flex justify-center items-center h-screen">
-            <Card className="w-2/5">
+            <Card className="w-full sm:w-3/5 md:w-2/5 max-w-md">
                 <CardHeader>
                     <div className="flex justify-center">
                         <Image
@@ -41,44 +58,35 @@ const page = () => {
                         />
                     </div>
                     <CardTitle className="flex justify-center text-4xl">Login</CardTitle>
+                    {
+                        showMessage && <AlertDanger message={messageError} />
+                    }
                 </CardHeader>
                 <CardContent>
-                <div>
-                        <Label className="text-xl" htmlFor="username">Email / No Telp</Label>
-                        <Input 
-                            className="h-12 !text-xl" 
-                            type="text" 
-                            id="username" 
-                            placeholder="Masukkan Email atau No telp" 
-                            onChange={(e)=>setUsername(e.target.value)}
-                            value={username}
-                        />
-                </div>
+                    <Text
+                        label="Email / No Telp"
+                        placeholder="Masukkan Email Atau No Telp"
+                        id="username"
+                        value={username}
+                        onChange={setUsername}
+                        type="text"
+                    />
                 <div className="mt-5">
-                        <Label className="text-xl" htmlFor="password">Password</Label>
-                        <div className="relative">
-                            <Input 
-                                className="h-12 !text-xl pr-10" 
-                                type={showPassword ? "text": "password"} 
-                                id="password" 
-                                placeholder="Masukkan Password"
-                                onChange={e=> setPassword(e.target.value)}
-                                value={password}
-                            />
-                            <button
-                                type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 "
-                                >
-                                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                            </button>
-                        </div>
+                    <Password
+                        label="Password"
+                        value={password}
+                        placeholder="Masukkan password"
+                        id="password"
+                        onChange={setPassword}
+                    />
                 </div>
                 </CardContent>
                 <CardFooter>
                     <div className="w-full">
                         <Button onClick={login} className="w-full h-13 !text-xl cursor-pointer bg-[#006E5D] hover:bg-[#004D40]">Login</Button>
-                        <p className="text-blue-600 text-xl mt-3">Belum Punya Akun?</p>
+                        <p className="text-gray-600 text-xl mt-3">Belum Punya Akun? 
+                            <span className="!text-blue-600 pl-2"><Link href="/auth/register">Register</Link></span>
+                        </p>
                     </div>
                 </CardFooter>
             </Card>

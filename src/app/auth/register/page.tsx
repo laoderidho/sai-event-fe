@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 const page = () => {
     return (
       <div className="flex justify-center items-center h-screen">
-          <Card className="w-2/5">
+          <Card className="w-full sm:w-3/5 md:w-2/5 max-w-md">
               <CardHeader>
                   <div className="flex justify-center">
                       <Image
@@ -19,7 +19,7 @@ const page = () => {
                       className="flex justify-center"
                       />
                   </div>
-                  <CardTitle className="flex justify-center text-4xl">Login</CardTitle>
+                  <CardTitle className="flex justify-center text-4xl">Register</CardTitle>
               </CardHeader>
               <CardContent>
               <div>
@@ -44,8 +44,7 @@ const page = () => {
               </div>
               </CardContent>
               <CardFooter>
-                  <Button className="w-full h-13 !text-lg cursor-pointer bg-[#006E5D] hover:bg-[#004D40]">Login</Button>
-                  <p>Belum Punya Akun?</p>
+                  
               </CardFooter>
           </Card>
       </div>
