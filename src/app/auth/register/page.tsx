@@ -2,11 +2,23 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import Image from "next/image"
 import Stepper from "@/components/custom/step/stepper"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ParentStep from "@/components/custom/register-step/parentStep"
+import { useSelector } from "react-redux"
 
 const page = () => {
     const [step, setStep]= useState(0)
+
+    const state = useSelector((state: { register: any }) => state.register);
+    useEffect(()=>{
+      setupStep()
+    }, [state])
+
+    const setupStep = (): void => {
+        if(state.email !== '' && state.name !== '' && state.no_telp !== ''){
+          setStep(prev=>prev+1)
+        }
+    }
 
     return (
       <div className="flex justify-center items-center h-screen">
