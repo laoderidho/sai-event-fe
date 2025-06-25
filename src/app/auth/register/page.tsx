@@ -1,11 +1,13 @@
 "use client"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import Image from "next/image"
-import { Input } from "@/components/ui/input"
-import { Label } from "@radix-ui/react-label"
-import { Button } from "@/components/ui/button"
+import Stepper from "@/components/custom/step/stepper"
+import { useState } from "react"
+import ParentStep from "@/components/custom/register-step/parentStep"
 
 const page = () => {
+    const [step, setStep]= useState(0)
+
     return (
       <div className="flex justify-center items-center h-screen">
           <Card className="w-full sm:w-3/5 md:w-2/5 max-w-md">
@@ -22,26 +24,8 @@ const page = () => {
                   <CardTitle className="flex justify-center text-4xl">Register</CardTitle>
               </CardHeader>
               <CardContent>
-              <div>
-                      <Label className="text-xl" htmlFor="username">Email / No Telp</Label>
-                      <Input 
-                          className="h-12 !text-xl" 
-                          type="text" 
-                          id="username" 
-                          placeholder="Masukkan Email atau No telp" 
-                      />
-              </div>
-              <div className="mt-5">
-                      <Label className="text-xl" htmlFor="password">Password</Label>
-                      <div className="relative">
-                          <Input 
-                              className="h-12 !text-xl pr-10" 
-                              type="text" 
-                              id="password" 
-                              placeholder="Masukkan Password"
-                          />
-                      </div>
-              </div>
+                <Stepper currentStep={step} steps={[1, 2, 3]} />
+                <ParentStep stepNumber={step}/>
               </CardContent>
               <CardFooter>
                   

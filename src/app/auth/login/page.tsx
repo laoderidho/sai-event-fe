@@ -9,6 +9,7 @@ import Text from "@/components/custom/input/Text"
 import Password from "@/components/custom/input/Password"
 import AlertDanger from "@/components/custom/alert/danger"
 
+
 const page = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -71,7 +72,7 @@ const page = () => {
                         onChange={setUsername}
                         type="text"
                     />
-                <div className="mt-5">
+                <div className="mt-2">
                     <Password
                         label="Password"
                         value={password}
@@ -83,8 +84,8 @@ const page = () => {
                 </CardContent>
                 <CardFooter>
                     <div className="w-full">
-                        <Button onClick={login} className="w-full h-13 !text-xl cursor-pointer bg-[#006E5D] hover:bg-[#004D40]">Login</Button>
-                        <p className="text-gray-600 text-xl mt-3">Belum Punya Akun? 
+                        <Button onClick={login} className="w-full h-9 !text-base cursor-pointer bg-[#006E5D] hover:bg-[#004D40]">Login</Button>
+                        <p className="text-gray-600 text-base mt-2">Belum Punya Akun? 
                             <span className="!text-blue-600 pl-2"><Link href="/auth/register">Register</Link></span>
                         </p>
                     </div>

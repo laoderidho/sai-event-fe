@@ -16,9 +16,9 @@ type TextInputProps = {
 export default function Text({ label, placeholder = "", id, value, onChange, type }: TextInputProps) {
   return (
     <div>
-      <Label className="text-xl" htmlFor={id}>{label}</Label>
+      <Label className="text-base" htmlFor={id}>{label}</Label>
       <Input 
-        className="h-12 !text-xl" 
+        className="h-10 !text-base" 
         type={type}
         id={id} 
         placeholder={placeholder} 

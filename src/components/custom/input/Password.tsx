@@ -18,10 +18,10 @@ const Password = ({label, placeholder="", id, value, onChange}: TextInputProps) 
 
   return (
     <div>
-        <Label className="text-xl" htmlFor={id}>{label}</Label>
+        <Label className="text-base" htmlFor={id}>{label}</Label>
         <div className="relative">
             <Input 
-                className="h-12 !text-xl pr-10" 
+                className="h-10 !text-base pr-10" 
                 type={showPassword ? "text": "password"} 
                 id={id} 
                 placeholder={placeholder}
