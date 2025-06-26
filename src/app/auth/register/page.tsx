@@ -4,23 +4,33 @@ import Image from "next/image"
 import Stepper from "@/components/custom/step/stepper"
 import { useEffect, useState } from "react"
 import ParentStep from "@/components/custom/register-step/parentStep"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { reset } from "@/store/registerStore"
 
 const page = () => {
     const [step, setStep]= useState(0)
+    
+    const dispatch = useDispatch()
 
     const state = useSelector((state: { register: any }) => state.register);
-    useEffect(()=>{
-      setupStep()
-    }, [state])
-
+      
     const setupStep = (): void => {
+        console.log(state)
         if(state.email !== '' && state.name !== '' && state.no_telp !== ''){
           setStep(prev=>prev+1)
         }else if(state.password !== ''){
           setStep(prev=>prev+1)
         }
     }
+
+    useEffect(()=>{
+        setupStep()
+    }, [state])
+
+    useEffect(()=>{
+      dispatch(reset())
+      setStep(0)
+    },[])
 
     return (
       <div className="flex justify-center items-center h-screen">

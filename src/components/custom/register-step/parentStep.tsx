@@ -32,7 +32,7 @@ const ParentStep = ({ stepNumber }: Step) => {
   }
 
   return (
-    <div className="relative h-78 overflow-hidden">
+    <div className="relative h-90 overflow-hidden">
       {renderStep()}
     </div>
   )

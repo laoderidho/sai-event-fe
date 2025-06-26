@@ -4,12 +4,17 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useDispatch } from "react-redux"
 import { setData } from "@/store/registerStore"
+import api from "@/lib/api"
+import { useEffect } from "react"
+import AlertDanger from "../alert/danger"
 
 const Step1 = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const dispatch = useDispatch()
+  const [messageError, setMessageError] = useState('')
+  const [showMessage, setShowMessage] = useState(false)
 
   const updateBio = () =>{
     dispatch(setData({ 
@@ -19,8 +24,35 @@ const Step1 = () => {
     }))
   }
 
+  const checkData = async () => {
+      try {
+        const data = await api.post('auth/check', {
+            email,
+            no_telp: phone,
+        })
+        if(data.status == 200){
+            updateBio()
+        }
+      } catch (error: any) {
+        setShowMessage(true)
+        setMessageError(error.response.data.message)
+      }
+  }
+
+    // mounted 
+    useEffect(() =>{
+        if(showMessage){
+            setTimeout(()=>{
+                setShowMessage(false)
+            }, 5000)
+        }
+    },[showMessage])
+
   return (
     <div className="mt-2">
+        {
+            showMessage && <AlertDanger message={messageError} />
+        }
        <Text
             label="Nama"
             placeholder="Masukkan Nama Anda"
@@ -51,7 +83,7 @@ const Step1 = () => {
         </div>
         
         <div className="w-full mt-6">
-            <Button onClick={updateBio} disabled={name !== '' && email !== '' && phone !== ''} className="w-full h-9 !text-base cursor-pointer bg-[#006E5D] hover:bg-[#004D40]">Simpan</Button>
+            <Button onClick={checkData} disabled={name == '' || email == '' || phone == ''} className="w-full h-9 !text-base cursor-pointer bg-[#006E5D] hover:bg-[#004D40]">Simpan</Button>
             <p className="text-gray-600 text-base mt-2">Sudah Punya Akun? 
                 <span className="!text-blue-600 pl-2"><Link href="/auth/login">Login</Link></span>
             </p>

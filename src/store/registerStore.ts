@@ -15,9 +15,10 @@ const registerStore = createSlice({
     reducers: {
         setData: (state, action) =>{
             return {...state, ...action.payload}
-        }
+        },
+        reset: () => initialState
     }
 })
 
-export const {setData} = registerStore.actions
+export const {setData, reset} = registerStore.actions
 export const registerReducer = registerStore.reducer

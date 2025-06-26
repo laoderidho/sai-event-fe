@@ -1,4 +1,5 @@
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
+import { Label } from "@radix-ui/react-label"
 
 interface Option {
   label: string,
@@ -8,23 +9,28 @@ interface Option {
 interface param{
   options: Option[],
   label: string,
+  placeholder: string,
   onChange: (value: string) => void
 }
 
-const CSelect = ({options,label, onChange}: param) => {
+const CSelect = ({options,label,placeholder, onChange}: param) => {
   return (
-    <Select onValueChange={onChange}>
-        <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder={label} />
-        </SelectTrigger>
-        <SelectContent>
-            {options && options.map(option=>(
-              <SelectItem key={option.value} value={option.value}>
-                  {option.label}
-              </SelectItem>
-            ))}
-        </SelectContent>
-    </Select>
+    <div>
+       <Label className="text-base">{label}</Label>
+        <Select onValueChange={onChange}>
+            <SelectTrigger className="w-full">
+                <SelectValue placeholder={placeholder} />
+            </SelectTrigger>
+            <SelectContent>
+                {options && options.map(option=>(
+                  <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                  </SelectItem>
+                ))}
+            </SelectContent>
+        </Select>
+    </div>
+    
   )
 }
 

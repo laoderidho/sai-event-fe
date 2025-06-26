@@ -18,9 +18,9 @@ const Step2 = () => {
       if(password !== confirmPassword){
         setShowMessage(true)
         setMessage('* Password Dan Kata Sandi Harus Sama')
-      }else if(password.length < 8){
+      }else if(password.length < 6){
         setShowMessage(true)
-        setMessage('* Kata Sandi tidak boleh kurang dari 8 karakter')
+        setMessage('* Kata Sandi tidak boleh kurang dari 6 karakter')
       }else{
         dispatch(setData({
           password
