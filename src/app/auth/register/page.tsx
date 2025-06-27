@@ -15,12 +15,7 @@ const page = () => {
     const state = useSelector((state: { register: any }) => state.register);
       
     const setupStep = (): void => {
-        console.log(state)
-        if(state.email !== '' && state.name !== '' && state.no_telp !== ''){
-          setStep(prev=>prev+1)
-        }else if(state.password !== ''){
-          setStep(prev=>prev+1)
-        }
+       setStep(state.step)
     }
 
     useEffect(()=>{
@@ -33,7 +28,7 @@ const page = () => {
     },[])
 
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center">
           <Card className="w-full sm:w-3/5 md:w-2/5 max-w-md">
               <CardHeader>
                   <div className="flex justify-center">

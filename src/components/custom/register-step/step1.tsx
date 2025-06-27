@@ -2,16 +2,17 @@ import { useState } from "react"
 import Text from "../input/Text"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { setData } from "@/store/registerStore"
 import api from "@/lib/api"
 import { useEffect } from "react"
 import AlertDanger from "../alert/danger"
 
 const Step1 = () => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
+  const state = useSelector((state: { register: any }) => state.register);
+  const [name, setName] = useState(state.name)
+  const [email, setEmail] = useState(state.email)
+  const [phone, setPhone] = useState(state.no_telp)
   const dispatch = useDispatch()
   const [messageError, setMessageError] = useState('')
   const [showMessage, setShowMessage] = useState(false)
@@ -20,7 +21,8 @@ const Step1 = () => {
     dispatch(setData({ 
         name,
         email,
-        no_telp: phone
+        no_telp: phone,
+        step: state.step + 1
     }))
   }
 

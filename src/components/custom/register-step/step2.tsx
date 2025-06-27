@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import Password from '../input/Password'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setData } from '@/store/registerStore'
 
 const Step2 = () => {
-  
-  const [password, setPassword]= useState('')
-  const [confirmPassword, setConfirmPassword]= useState('')
+  const state = useSelector((state: { register: any }) => state.register);
+  const [password, setPassword]= useState(state.password)
+  const [confirmPassword, setConfirmPassword]= useState(state.password)
   const [showMessage, setShowMessage] = useState(false)
   const [message, setMessage] = useState('')
 
@@ -23,9 +23,16 @@ const Step2 = () => {
         setMessage('* Kata Sandi tidak boleh kurang dari 6 karakter')
       }else{
         dispatch(setData({
-          password
+          password,
+          step: state.step + 1
         }))
       }
+  }
+
+  const updateStepBefore = () => {
+    dispatch(setData({
+      step: state.step - 1
+    }))
   }
 
   return (
@@ -50,7 +57,11 @@ const Step2 = () => {
       </div>
 
       <div className="w-full mt-6">
-            <Button onClick={updatePassword} className="w-full h-9 !text-base cursor-pointer bg-[#006E5D] hover:bg-[#004D40]">Simpan</Button>
+            <div className='flex justify-between'>
+              <Button onClick={updateStepBefore} className="w-[45%] h-9 mx-1 !text-base text-black cursor-pointer border border-black bg-[#FFFFFF] hover:bg-[#F2F2F2F2]">Sebelumnya</Button>
+              <Button onClick={updatePassword} className="w-[45%] h-9 mx-1 !text-base cursor-pointer bg-[#006E5D] hover:bg-[#004D40]">Simpan</Button>
+            </div>
+            
             <p className="text-gray-600 text-base mt-2">Sudah Punya Akun? 
                 <span className="!text-blue-600 pl-2"><Link href="/auth/login">Login</Link></span>
             </p>

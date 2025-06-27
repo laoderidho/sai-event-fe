@@ -6,7 +6,8 @@ const initialState = {
     password: "",
     name: "",
     no_telp: "",
-    congregation_id: 0
+    congregation_id: 0,
+    step: 0
 }
 
 const registerStore = createSlice({
