@@ -94,7 +94,7 @@ const Step3 = () => {
         <div className="w-full mt-6">
             <div className='flex justify-between'>
               <Button onClick={updateStepBefore} className="w-[45%] h-9 mx-1 !text-base text-black cursor-pointer border border-black bg-[#FFFFFF] hover:bg-[#F2F2F2F2]">Sebelumnya</Button>
-              <Button onClick={submitDataRegister} disabled={cnSelect == 0} className="w-[45%] h-9 mx-1 !text-base cursor-pointer bg-[#006E5D] hover:bg-[#004D40]">Simpan</Button>
+              <Button onClick={submitDataRegister} disabled={cnSelect == 0} className="w-[45%] h-9 mx-1 !text-base cursor-pointer bg-primary hover:bg-[#004D40]">Simpan</Button>
             </div>
            
             <p className="text-gray-600 text-base mt-2">Sudah Punya Akun? 
