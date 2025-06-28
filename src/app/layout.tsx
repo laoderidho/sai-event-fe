@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SAI Event Manegement",
-  description: "Event Manegement",
+  title: "SAI Event",
+  description: "Manajemen Event untuk Komunitas SAI",
   icons: {
     icon: "/logo.png?v=2"
   }
