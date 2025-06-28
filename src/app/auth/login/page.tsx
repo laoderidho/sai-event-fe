@@ -8,15 +8,19 @@ import Link from "next/link"
 import Text from "@/components/custom/input/Text"
 import Password from "@/components/custom/input/Password"
 import AlertDanger from "@/components/custom/alert/danger"
-
+import { useDispatch } from "react-redux"
+import { setDataAuth } from "@/store/authStore"
+import { adminId, userId } from "@/lib/config/general"
+import { useRouter } from "next/navigation"
 
 const page = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const dispatch = useDispatch()
+    const router = useRouter()
 
     const [messageError, setMessageError] = useState('')
     const [showMessage, setShowMessage] = useState(false)
-
 
     // function
     const login = async () =>{
@@ -26,11 +30,29 @@ const page = () => {
                 password: password
             })
             if(res.status == 200){
-                console.log("success")
+                const name = res.data.data.name
+                const role = res.data.data.role
+                dispatch(setDataAuth({
+                    name,
+                    role
+                }))
+
+                localStorage.setItem('name', name)
+                localStorage.setItem('role', role)
+
+                settingCheckRoute(role)
             }
         } catch (error: any) {
             setMessageError(error.response.data.message)
             setShowMessage(true)
+        }
+    }
+
+    const settingCheckRoute = (role: number): void => {
+        if(role == adminId){
+            router.push('/admin/home')
+        }else if(role == userId){
+            router.push('/user/home')
         }
     }
 

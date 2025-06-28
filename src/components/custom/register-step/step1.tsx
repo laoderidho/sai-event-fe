@@ -80,7 +80,7 @@ const Step1 = () => {
                 id="no_telp"
                 value={phone}
                 onChange={setPhone}
-                type="text"
+                type="number"
             />
         </div>
         
