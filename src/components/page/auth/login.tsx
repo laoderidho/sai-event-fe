@@ -33,12 +33,9 @@ const LoginPage = () => {
                 const name = res.data.data.name
                 const role = res.data.data.role
                 dispatch(setDataAuth({
-                    name,
-                    role
+                    name: name,
+                    role: role
                 }))
-
-                localStorage.setItem('name', name)
-                localStorage.setItem('role', role)
 
                 settingCheckRoute(role)
             }
