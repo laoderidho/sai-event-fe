@@ -43,7 +43,7 @@ const AdminNavigation = () => {
               </button>
               <div className="absolute left-0 mt-2 w-40 bg-white border rounded shadow-md opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-10">
                 <Link href="/admin/region" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Region</Link>
-                <Link href="/admin/congregation" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Congregation</Link>
+                <Link href="/admin/congregation" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Jemaat</Link>
               </div>
             </div>
           </div>
@@ -85,7 +85,7 @@ const AdminNavigation = () => {
             {showSubMenu && (
               <div className="pl-4 mt-2 space-y-1">
                 <Link href="/admin/region" className="block text-gray-600 hover:text-primary text-sm">Region</Link>
-                <Link href="/admin/congregation" className="block text-gray-600 hover:text-primary text-sm">Congregation</Link>
+                <Link href="/admin/congregation" className="block text-gray-600 hover:text-primary text-sm">Jemaat</Link>
               </div>
             )}
           </div>
