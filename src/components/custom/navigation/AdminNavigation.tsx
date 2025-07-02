@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Menu, X, ChevronDown, ChevronUp, LogOut } from "lucide-react"; 
 import Link from "next/link"; 
 import Image from "next/image";
@@ -73,15 +73,19 @@ const AdminNavigation = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden px-4 pb-4 space-y-4">
+
+          <div className="relative group">
+            <Link href="/admin/home"  className="text-gray-700 hover:text-primary flex items-center gap-1">Home</Link>
+          </div>
           {/* Toggle-able Home submenu */}
           <div>
             <button onClick={toggleSubMenu} className="flex justify-between w-full text-gray-700 hover:text-primary">
-              Home {showSubMenu ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              Data {showSubMenu ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
             </button>
             {showSubMenu && (
               <div className="pl-4 mt-2 space-y-1">
-                <Link href="/admin/home/dashboard" className="block text-gray-600 hover:text-primary text-sm">Dashboard</Link>
-                <Link href="/admin/home/settings" className="block text-gray-600 hover:text-primary text-sm">Settings</Link>
+                <Link href="/admin/region" className="block text-gray-600 hover:text-primary text-sm">Region</Link>
+                <Link href="/admin/congregation" className="block text-gray-600 hover:text-primary text-sm">Congregation</Link>
               </div>
             )}
           </div>
