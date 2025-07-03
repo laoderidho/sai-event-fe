@@ -6,18 +6,19 @@ import { DataTable } from "@/components/custom/datatable/Datatable"
 import { COregion } from "@/components/custom/column-datatable/region"
 import ParentDialog from "@/components/custom/dialog/ParentDialog"
 import { Plus } from "lucide-react"
-import Text from "@/components/custom/input/Text"
 import { Button } from "@/components/ui/button"
 import { Toaster } from "@/components/ui/sonner"
 import { toast } from "sonner"
+import { BindComponentRegion } from "@/components/custom/element/BindRegion"
+import { BindComponentDeleteRegion } from "@/components/custom/element/BindDeleteRegion"
 
 const RegionPage = () => {
-  const [region, setRegion] = useState<Iregion[]>([])
-  const [name, setName] = useState<string>('')
-  const [openDialog, setOpenDialog] = useState<boolean>(false)
-  const [id, setId] = useState<number>(0)
-  const [label, setLabel] = useState<string>('')
-  const [statusComponent, setStatusComponent] = useState<number>(0)
+const [region, setRegion] = useState<Iregion[]>([])
+const [name, setName] = useState<string>('')
+const [openDialog, setOpenDialog] = useState<boolean>(false)
+const [id, setId] = useState<number>(0)
+const [label, setLabel] = useState<string>('')
+const [statusComponent, setStatusComponent] = useState<number>(0)
 
   // function api 
   const getData = async () => {
@@ -84,14 +85,14 @@ const RegionPage = () => {
   }
 
   // Function handle
-  const handleAdd = () => {
+  const handleAdd = (): void => {
     setOpenDialog(true)
     setLabel('Tambah Wilayah')
     setStatusComponent(1)
     setName('')
   }
 
-  const handleEdit = (row: Iregion) => {
+  const handleEdit = (row: Iregion): void => {
     setOpenDialog(true)
     setName(row.name)
     setId(row.id)
@@ -99,7 +100,7 @@ const RegionPage = () => {
     setStatusComponent(2)
   }
 
-  const handleDelete = (row: Iregion) => {
+  const handleDelete = (row: Iregion): void => {
     setOpenDialog(true)
     setName(row.name)
     setId(row.id)
@@ -107,40 +108,12 @@ const RegionPage = () => {
     setStatusComponent(3)
   }
 
-  const bindComponent = () => {
-    return (
-      <div>
-          <Text
-              label="Nama Wilayah"
-              placeholder="Masukkan Nama Wilayah "
-              id="name"
-              value={name}
-              onChange={setName}
-              type="text"
-          />
-          <div className="mt-5 flex justify-end">
-            <Button onClick={statusComponent == 1 ? save : update } className="">{statusComponent == 1 ? 'Simpan' : 'Update'}</Button>
-          </div>
-      </div>
-    )
-  }
-
-  const bindComponentDelete = () => {
-    return (
-      <div>
-          <p>Apakah anda yakin ingin menghapus wilayah <span className="font-bold">{name}</span> ?</p>
-          <div className="mt-5 flex justify-end">
-            <Button variant="destructive" onClick={deleteData} className="">Hapus</Button>
-          </div>
-      </div>
-    )
-  }
-
   // useeffect mounted
   useEffect(()=> {
     getData()
   },[])
 
+  // columns datatable
   const columns = COregion({ onEdit: handleEdit, onDelete: handleDelete })
 
   return (
@@ -157,8 +130,24 @@ const RegionPage = () => {
             open={openDialog}
             setOpen={setOpenDialog}
           >
-         {(statusComponent == 1 || statusComponent == 2) && bindComponent()}
-         {statusComponent == 3 && bindComponentDelete()}
+
+         {(statusComponent == 1 || statusComponent == 2) 
+            && <BindComponentRegion
+              name={name}
+              setName={setName}
+              save={save}
+              update={update}
+              statusComponent={statusComponent}
+            />
+         }
+         
+         {statusComponent == 3 
+            && <BindComponentDeleteRegion
+                name={name}
+                deleteData={deleteData}
+                /> 
+            
+          }
           </ParentDialog>
         </div>
         
