@@ -1,4 +1,4 @@
-import Text from "../input/Text"
+import Text from "../../input/Text"
 import { Button } from "@/components/ui/button"
 
 type Props = {

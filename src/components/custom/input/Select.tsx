@@ -6,31 +6,31 @@ interface Option {
   value: string
 }
 
-interface param{
+interface Props {
   options: Option[],
   label: string,
   placeholder: string,
-  onChange: (value: string) => void
+  value?: any, // Tambahkan ini
+  onChange: (value: any) => void
 }
 
-const CSelect = ({options,label,placeholder, onChange}: param) => {
+const CSelect = ({ options, label, placeholder, value, onChange }: Props) => {
   return (
     <div>
-       <Label className="text-base">{label}</Label>
-        <Select onValueChange={onChange}>
-            <SelectTrigger className="w-full">
-                <SelectValue placeholder={placeholder} />
-            </SelectTrigger>
-            <SelectContent>
-                {options && options.map(option=>(
-                  <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                  </SelectItem>
-                ))}
-            </SelectContent>
-        </Select>
+      <Label className="text-base">{label}</Label>
+      <Select onValueChange={onChange} value={value}>
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder={placeholder} />
+        </SelectTrigger>
+        <SelectContent>
+          {options?.map(option => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
-    
   )
 }
 

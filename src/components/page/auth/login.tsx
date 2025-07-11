@@ -9,7 +9,7 @@ import Text from "@/components/custom/input/Text"
 import Password from "@/components/custom/input/Password"
 import AlertDanger from "@/components/custom/alert/danger"
 import { useDispatch } from "react-redux"
-import { setDataAuth } from "@/store/authStore"
+import { setDataAuth, reset } from "@/store/authStore"
 import { adminId, userId } from "@/lib/config/general"
 import { useRouter } from "next/navigation"
 
@@ -54,6 +54,11 @@ const LoginPage = () => {
     }
 
     // mounted 
+
+    useEffect(()=>{
+        dispatch(reset())
+    },[])
+
     useEffect(() =>{
 
         if(showMessage){

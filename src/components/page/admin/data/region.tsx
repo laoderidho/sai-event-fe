@@ -9,8 +9,8 @@ import { Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Toaster } from "@/components/ui/sonner"
 import { toast } from "sonner"
-import { BindComponentRegion } from "@/components/custom/element/BindRegion"
-import { BindComponentDeleteRegion } from "@/components/custom/element/BindDeleteRegion"
+import { BindComponentRegion } from "@/components/custom/element/Region/BindRegion"
+import { BindComponentDeleteRegion } from "@/components/custom/element/Region/BindDeleteRegion"
 
 const RegionPage = () => {
 const [region, setRegion] = useState<Iregion[]>([])
