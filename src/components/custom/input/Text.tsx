@@ -5,20 +5,21 @@ import { Label } from "@radix-ui/react-label"
 import { Input } from "@/components/ui/input"
 
 type TextInputProps = {
-  label: string
+  label?: string
   placeholder?: string
   id: string
   value: string
   onChange: (value: string) => void
-  type: string
+  type: string,
+  classNameInput?: string
 }
 
-export default function Text({ label, placeholder = "", id, value, onChange, type }: TextInputProps) {
+export default function Text({ label, placeholder = "", id, value, onChange, type, classNameInput = "" }: TextInputProps) {
   return (
     <div>
-      <Label className="text-base" htmlFor={id}>{label}</Label>
+      {label &&  <Label className="text-base" htmlFor={id}>{label}</Label>}
       <Input 
-        className="h-10 !text-base" 
+        className={`h-10 !text-base ${classNameInput}`} 
         type={type}
         id={id} 
         placeholder={placeholder} 

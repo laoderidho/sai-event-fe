@@ -4,6 +4,7 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   flexRender,
+  getFilteredRowModel,
 } from "@tanstack/react-table"
 import {
   Table,
@@ -25,20 +26,30 @@ export function DataTable<TData, TValue>({
     pageIndex: 0,
     pageSize: pageSize,
   })
+  const [globalFilter, setGlobalFilter] = useState("")
 
   const table = useReactTable({
     data,
     columns,
     state: {
       pagination,
+      globalFilter
     },
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel()
   })
 
   return (
     <div className="rounded-md border p-4">
+      <input
+        type="text"
+        placeholder="Cari..."
+        value={globalFilter ?? ""}
+        onChange={(e) => setGlobalFilter(e.target.value)}
+        className="px-3 py-2 border rounded w-full md:w-1/3 h-8"
+      />
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
