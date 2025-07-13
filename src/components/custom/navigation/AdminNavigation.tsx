@@ -1,19 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X, ChevronDown, ChevronUp, LogOut } from "lucide-react"; 
 import Link from "next/link"; 
 import Image from "next/image";
 import { useSelector } from "react-redux";
+import { usePathname } from "next/navigation"
+import api from "@/lib/api";
 
 const AdminNavigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showSubMenu, setShowSubMenu] = useState(false);
+  const [imageLink, setImageLink] = useState<string>('')
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleSubMenu = () => setShowSubMenu(!showSubMenu);
+  const pathName = usePathname()
 
   const name = typeof window !== "undefined" ? localStorage.getItem('name') || 'Guest' : 'Guest';
   const authData = useSelector((state: { auth: any }) => state.auth);
+
+    const getProfileImage = async () => {
+      try {
+        const res = await api.get(`profile/${authData.id}`, {})
+        setImageLink(res.data.data[0].linkImage)
+      } catch (error) {
+        
+      }
+    }
+
+  useEffect(()=> {
+    setIsOpen(false)
+    setShowSubMenu(false)
+  },[pathName])
+
+  useEffect(()=> {
+    getProfileImage()
+  },[])
 
   return (
     <nav className="bg-white shadow-md w-full">
@@ -50,13 +72,15 @@ const AdminNavigation = () => {
 
           {/* Profile - Desktop */}
           <div className="hidden md:flex items-center space-x-4">
-            <Image
-              src="/auth/guest.png"
-              alt="logo"
-              width={40}
-              height={40}
-              className="rounded-full"
-            />
+            <div className="w-10 h-10 rounded-full overflow-hidden border border-gray-200">
+              <Image
+                src={imageLink === '' ? "/auth/guest.png" : imageLink}
+                alt="profile"
+                width={40}
+                height={40}
+                className="object-cover"
+              />
+            </div>
             <p className="text-md font-bold">{name}</p>
             <Link href="/auth/login" className="text-gray-700 hover:text-primary flex items-center">
               <LogOut className="ml-1" />
@@ -92,13 +116,15 @@ const AdminNavigation = () => {
 
           {/* Profile - Mobile */}
           <div className="flex items-center gap-3 mt-4">
-            <Image
-              src="/auth/guest.png"
-              alt="profile"
-              width={40}
-              height={40}
-              className="rounded-full"
-            />
+             <div className="w-10 h-10 rounded-full overflow-hidden border border-gray-200">
+              <Image
+                src={imageLink === '' ? "/auth/guest.png" : imageLink}
+                alt="profile"
+                width={40}
+                height={40}
+                className="object-cover"
+              />
+            </div>
             <div>
               <p className="text-md font-bold">{authData.name}</p>
               <Link href="/auth/login" className="flex items-center text-sm text-gray-700 hover:text-primary">
