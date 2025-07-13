@@ -32,9 +32,11 @@ const LoginPage = () => {
             if(res.status == 200){
                 const name = res.data.data.name
                 const role = res.data.data.role
+                const id = res.data.data.id
                 dispatch(setDataAuth({
                     name: name,
-                    role: role
+                    role: role,
+                    id: id
                 }))
 
                 settingCheckRoute(role)
