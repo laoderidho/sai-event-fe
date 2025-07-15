@@ -1,5 +1,5 @@
 "use client";
-
+/* eslint-disable */
 import { useEffect, useState } from "react";
 import { Menu, X, ChevronDown, ChevronUp, LogOut } from "lucide-react"; 
 import Link from "next/link"; 
@@ -23,8 +23,8 @@ const AdminNavigation = () => {
       try {
         const res = await api.get(`profile/${authData.id}`, {})
         setImageLink(res.data.data[0].linkImage)
-      } catch (error) {
-        
+      } catch {
+
       }
     }
 

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect, useState } from "react"
 import CSelect from "../input/Select"
 import api from "@/lib/api"

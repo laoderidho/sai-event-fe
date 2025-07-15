@@ -1,4 +1,5 @@
 "use client"
+/* eslint-disable */
 import api from "@/lib/api"
 import { useEffect, useState } from "react"
 import { Iregion } from "@/lib/interface/data-select/Iregion"

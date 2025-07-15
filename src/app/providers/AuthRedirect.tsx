@@ -7,6 +7,7 @@ import api from '@/lib/api';
 
 export function AuthRedirectProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  
   const {name} = useSelector((state: { auth: any }) => state.auth);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export function AuthRedirectProvider({ children }: { children: React.ReactNode }
     return () => {
       api.interceptors.response.eject(interceptor); // cleanup
     };
-  }, [router]);
+  }, [router, name]);
 
   
 

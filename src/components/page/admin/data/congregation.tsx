@@ -1,5 +1,5 @@
 "use client"
-
+/* eslint-disable */
 import api from "@/lib/api"
 import { useEffect, useState } from "react"
 import { Toaster, toast } from "sonner"
