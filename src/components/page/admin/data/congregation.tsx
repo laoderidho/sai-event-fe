@@ -55,6 +55,9 @@ const CongregationPage = () => {
       })
       if(res.status == 200){
         toast.success(res.data.message)
+        getCongregation()
+        setOpenDialog(false)
+        setName('')
       }
    } catch (error: any) {
       toast.error(error.response.data.message)

@@ -1,12 +1,13 @@
 "use client";
 /* eslint-disable */
 import { useEffect, useState } from "react";
-import { Menu, X, ChevronDown, ChevronUp, LogOut } from "lucide-react"; 
+import { Menu, X, ChevronDown, ChevronUp, LogOut, User } from "lucide-react"; 
 import Link from "next/link"; 
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { usePathname } from "next/navigation"
 import api from "@/lib/api";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 const AdminNavigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,7 +72,7 @@ const AdminNavigation = () => {
           </div>
 
           {/* Profile - Desktop */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4 shadow p-1 rounded-3xl">
             <div className="w-10 h-10 rounded-full overflow-hidden border border-gray-200">
               <Image
                 src={imageLink === '' ? "/auth/guest.png" : imageLink}
@@ -81,10 +82,21 @@ const AdminNavigation = () => {
                 className="object-cover"
               />
             </div>
-            <p className="text-md font-bold">{name}</p>
-            <Link href="/auth/login" className="text-gray-700 hover:text-primary flex items-center">
-              <LogOut className="ml-1" />
-            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="rounded-xl px-1  font-bold flex justify-between">{name} <ChevronDown/></DropdownMenuTrigger>
+              <DropdownMenuContent>
+                 <DropdownMenuItem asChild>
+                     <Link href={`/admin/profile/${authData.id}/${authData.name}`} className="text-gray-700 hover:text-primary flex items-center">
+                      <User className="mx-1" /> Profile
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/auth/login" className="text-gray-700 hover:text-primary flex items-center">
+                      <LogOut className="mx-1" /> Logout
+                    </Link>
+                  </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           {/* Mobile hamburger button */}
@@ -115,8 +127,8 @@ const AdminNavigation = () => {
           </div>
 
           {/* Profile - Mobile */}
-          <div className="flex items-center gap-3 mt-4">
-             <div className="w-10 h-10 rounded-full overflow-hidden border border-gray-200">
+         <div className="md:flex items-center space-x-4 shadow p-1 rounded-3xl flex w-1/2">
+            <div className="w-10 h-10 rounded-full overflow-hidden border border-gray-200">
               <Image
                 src={imageLink === '' ? "/auth/guest.png" : imageLink}
                 alt="profile"
@@ -125,12 +137,22 @@ const AdminNavigation = () => {
                 className="object-cover"
               />
             </div>
-            <div>
-              <p className="text-md font-bold">{authData.name}</p>
-              <Link href="/auth/login" className="flex items-center text-sm text-gray-700 hover:text-primary">
-                <LogOut className="w-4 h-4 mr-1" /> Logout
-              </Link>
-            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="rounded-xl px-1  font-bold flex justify-between">{name} <ChevronDown/></DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>
+                     <Link href={`/admin/profile/${authData.id}/${authData.name}`} className="text-gray-700 hover:text-primary flex items-center">
+                      <User className="mx-1" /> Profile
+                    </Link>
+                  </DropdownMenuLabel>
+                  <DropdownMenuLabel>
+                    <Link href="/auth/login" className="text-gray-700 hover:text-primary flex items-center">
+                      <LogOut className="mx-1" /> Logout
+                    </Link>
+                  </DropdownMenuLabel>
+                  
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       )}
