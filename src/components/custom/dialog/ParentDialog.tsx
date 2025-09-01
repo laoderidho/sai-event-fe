@@ -14,7 +14,7 @@ const ParentDialog = ({
 }: TDialog) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>

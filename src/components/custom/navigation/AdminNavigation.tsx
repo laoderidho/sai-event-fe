@@ -23,7 +23,9 @@ const AdminNavigation = () => {
     const getProfileImage = async () => {
       try {
         const res = await api.get(`profile/${authData.id}`, {})
-        setImageLink(res.data.data[0].linkImage)
+        const link = res.data.data[0].linkImage
+
+        setImageLink(`${link}?t=${new Date().getTime()}`) // Prevent caching with timestamp
       } catch {
 
       }
